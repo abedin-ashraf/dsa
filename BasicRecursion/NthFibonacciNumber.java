@@ -2,7 +2,7 @@ package BasicRecursion;
 
 public class NthFibonacciNumber {
     public static void main(String[] args) {
-        System.out.println(nthFIbonacciNumber(10));
+        System.out.println(nthFIbonacciNumber(25));
     }
 
     public static int nthFIbonacciNumber(int n) {
