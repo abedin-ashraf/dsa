@@ -2,56 +2,57 @@ import java.util.Arrays;
 
 public class Solution {
     public static void main(String[] args) {
-        int nums[][] = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
-        System.out.println(findK(nums, 4, 4, 10));
+        int nums1[] = { -1, 0, 0, 3, 3, 3, 0, 0, 0 };
+        int m = 6;
+        int nums2[] = { 1, 2, 2 };
+        int n = 3;
+        merge(nums1, m, nums2, n);
+        System.out.println(Arrays.toString(nums1));
+
+        // int nums1[] = { 1, 2, 3, 0, 0, 0 };
+        // int m = 3;
+        // int nums2[] = { 2, 5, 6 };
+        // int n = 3;
+        // merge(nums1, m, nums2, n);
+        // System.out.println(Arrays.toString(nums1));
+
+        // int nums1[] = { 1 };
+        // int m = 1;
+        // int nums2[] = {};
+        // int n = 0;
+        // merge(nums1, m, nums2, n);
+        // System.out.println(Arrays.toString(nums1));
+
+        // int nums1[] = { 0 };
+        // int m = 0;
+        // int nums2[] = { 1 };
+        // int n = 1;
+        // merge(nums1, m, nums2, n);
+        // System.out.println(Arrays.toString(nums1));
+
     }
 
-    public static int findK(int A[][], int n, int m, int k) {
-        // Your code here
-        int arr[] = new int[m * n + 2];
-        int startRow = 0;
-        int endRow = n - 1;
-        int startCol = 0;
-        int endCol = m - 1;
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
 
-        int count = 0;
+        int temp[] = new int[m + n];
 
-        while (startRow <= endRow && startCol <= endCol) {
-            // Upper side
-            for (int j = startCol; j <= endCol; j++) {
-                arr[count] = A[startRow][j];
-                count++;
+        int i = m - 1;
+        int j = n - 1;
+        int k = nums1.length - 1;
+        while (k >= 0) {
+            if (i < 0 || (j >= 0 && nums2[j] > nums1[i])) {
+                temp[k] = nums2[j];
+                j--;
+            } else {
+                temp[k] = nums1[i];
+                i--;
             }
-            // Right Side
-            for (int i = startRow + 1; i <= endRow; i++) {
-                if (startCol == endCol) {
-                    break;
-                }
-                arr[count] = A[i][endCol];
-                count++;
-            }
-            // bottom side
-            for (int j = endCol - 1; j >= startCol; j--) {
-                if (startRow == endRow) {
-                    break;
-                }
-                arr[count] = A[endRow][j];
-                count++;
-            }
-            // Left side
-            for (int i = endRow - 1; i >= startRow; i--) {
-                if (startCol == endCol) {
-                    break;
-                }
-                arr[count] = A[i][startCol];
-                count++;
-            }
-            startRow++;
-            endRow--;
-            startCol++;
-            endCol--;
+            k--;
         }
 
-        return arr[k - 1];
+        for (i = 0; i < temp.length; i++) {
+            nums1[i] = nums1[i] ^ nums1[i] ^ temp[i];
+        }
+
     }
 }
