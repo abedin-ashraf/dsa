@@ -1,4 +1,4 @@
-public class trappedTainWater {
+public class trappedRainWater {
     public static void main(String[] args) {
         int height[] = { 4, 2, 0, 6, 3, 2, 5 };
         int trappedWater = trappedRainWater(height);
