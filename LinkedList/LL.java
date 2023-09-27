@@ -224,6 +224,53 @@ public class LL {
         return slow;
     }
 
+    public static boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true; // Cycle exists
+            }
+        }
+        return false; // Cycle doesn't exists
+    }
+
+    public static void removeCycle() {
+        // Detect Cycle
+        Node slow = head;
+        Node fast = head;
+        boolean cycle = false;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if (cycle == false) {
+            return;
+        }
+
+        // Find meeting Point
+        slow = head;
+        Node prev = null; // Last Node
+
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        // Remove Cycle -> last.next = null
+        prev.next = null;
+    }
+
     public static void main(String[] args) {
         LL ll = new LL();
         ll.addFirst(1);
@@ -233,7 +280,7 @@ public class LL {
         ll.addFirst(3);
         ll.addFirst(2);
         ll.addFirst(1);
-        ll.printLL();
+        // ll.printLL();
 
         // // ADD Operations
 
@@ -263,7 +310,16 @@ public class LL {
         // ll.deleteNthNodeFromEnd(3);
         // ll.printLL();
 
-        System.out.println(checkLLPalindrome());
+        // System.out.println(checkLLPalindrome());
 
+        head = new Node(1);
+        Node temp = new Node(2);
+        head.next = temp;
+        head.next.next = new Node(3);
+        head.next.next.next = temp;
+        // 1->2->3->1
+        System.out.println(isCycle());
+        removeCycle();
+        System.out.println(isCycle());
     }
 }
