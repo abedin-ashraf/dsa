@@ -248,6 +248,64 @@ public class LinkedList1 {
         return slow;
     }
 
+    public static Node mergeSort(Node head) {
+        // Corner case
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // find mid
+        Node mid = getMid(head);
+
+        // Left and right mergesort
+        Node rightHead = mid.next;
+        mid.next = null;
+        Node newLeft = mergeSort(head);
+        Node newRight = mergeSort(rightHead);
+
+        // merge
+        return merge(newLeft, newRight);
+    }
+
+    private static Node getMid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private static Node merge(Node head1, Node head2) {
+        Node mergedLL = new Node(-1);
+        Node temp = mergedLL;
+
+        while (head1 != null && head2 != null) {
+            if (head1.data <= head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+                temp = temp.next;
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+                temp = temp.next;
+            }
+        }
+        while (head1 != null) {
+            temp.next = head1;
+            head1 = head1.next;
+            temp = temp.next;
+        }
+        while (head2 != null) {
+            temp.next = head2;
+            head2 = head2.next;
+            temp = temp.next;
+        }
+
+        return mergedLL.next;
+    }
+
     public static void main(String[] args) {
         LinkedList1 ll = new LinkedList1();
         ll.addFirst(2);
@@ -256,6 +314,9 @@ public class LinkedList1 {
         ll.addLast(1);
         ll.add(3, 3);
 
+        ll.printLinkedList();
+
+        ll.head = mergeSort(ll.head);
         ll.printLinkedList();
 
         // System.out.println("Size: " + ll.size);
@@ -282,7 +343,7 @@ public class LinkedList1 {
         // ll.deleteNthFromEnd(5);
         // ll.printLinkedList();
 
-        System.out.println(ll.checkPalindrome());
+        // System.out.println(ll.checkPalindrome());
 
     }
 }
