@@ -306,18 +306,58 @@ public class LinkedList1 {
         return mergedLL.next;
     }
 
+    public void zigZag() {
+        // find MidNode
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node mid = slow;
+
+        // Reverse 2nd Half
+        Node curr = mid.next;
+        mid.next = null;
+        Node prev = null;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node leftHead = head;
+        Node rigthHead = prev;
+        Node nextLeft, nextRight;
+
+        // Alternative merge - zig zag merge
+        while (leftHead != null && rigthHead != null) {
+            nextLeft = leftHead.next;
+            leftHead.next = rigthHead;
+            nextRight = rigthHead.next;
+            rigthHead.next = nextLeft;
+
+            rigthHead = nextRight;
+            leftHead = nextLeft;
+
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList1 ll = new LinkedList1();
-        ll.addFirst(2);
         ll.addFirst(1);
-        ll.addLast(2);
-        ll.addLast(1);
-        ll.add(3, 3);
+        ll.addFirst(2);
+        ll.addLast(3);
+        ll.addLast(4);
+        ll.add(3, 5);
 
         ll.printLinkedList();
-
-        ll.head = mergeSort(ll.head);
+        ll.zigZag();
         ll.printLinkedList();
+        // ll.head = mergeSort(ll.head);
+        // ll.printLinkedList();
 
         // System.out.println("Size: " + ll.size);
         // System.out.println("Removed firstElement: " + ll.removeFirst());
