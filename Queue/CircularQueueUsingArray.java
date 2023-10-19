@@ -23,7 +23,7 @@ public class CircularQueueUsingArray {
             return (rear + 1) % size == front;
         }
 
-        // Add/Emque
+        // Add/Enque
         public static void add(int data) {
             if (isFull()) {
                 System.out.println("Queue is full");

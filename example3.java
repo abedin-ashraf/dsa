@@ -66,6 +66,6 @@ public class example3 {
         sc.push(2);
         sc.push(3);
         sc.stackUsingLinkedListPrint();
-
+        sc.stackUsingLinkedListPrint();
     }
 }
