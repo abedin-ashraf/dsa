@@ -14,5 +14,7 @@ public class Deque1 {
 
         System.out.println(dq.pop());
         System.out.println(dq);
+
+        System.out.println();
     }
 }
