@@ -15,8 +15,16 @@ public class One {
 
         System.out.println(hm.get("tea"));
 
-        hm.remove("pizza");
+        System.out.println(hm.remove("pizza"));
         System.out.println(hm);
         System.out.println(hm.containsKey("pizza"));
+        System.out.println(hm.size());
+
+        Set<String> keys = hm.keySet();
+        System.out.println(keys);
+
+        for (String k : keys) {
+            System.out.println("keys = " + k + " value = " + hm.get(k));
+        }
     }
 }
